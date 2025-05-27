@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Fitting Avatar</title>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- App Wrapper -->
+    <div class="app-wrapper">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">
+                <img src="assets/images/logo.svg" alt="Virtual Fitting Avatar">
+                <h1>Virtual Fitting Avatar</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#" class="active" data-view="capture">Create Avatar</a></li>
+                    <li><a href="#" data-view="fitting">Try On</a></li>
+                    <li><a href="#" data-view="gallery">My Looks</a></li>
+                    <li><a href="#" data-view="about">About</a></li>
+                </ul>
+            </nav>
+            <div class="theme-toggle">
+                <input type="checkbox" id="dark-mode-toggle">
+                <label for="dark-mode-toggle">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                    <span class="toggle-track"></span>
+                </label>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="app-content">
+            <!-- Capture View -->
+            <section id="capture-view" class="app-view active">
+                <h2>Create Your Digital Twin</h2>
+                <p class="section-description">
+                    Take a photo or upload an image to create your photorealistic avatar.
+                </p>
+                
+                <div class="capture-container">
+                    <!-- Input Selection Tabs -->
+                    <div class="input-tabs">
+                        <button class="tab-btn active" data-tab="webcam-tab">
+                            <i class="fas fa-camera"></i> Webcam
+                        </button>
+                        <button class="tab-btn" data-tab="upload-tab">
+                            <i class="fas fa-upload"></i> Upload
+                        </button>
+                    </div>
+                    
+                    <div class="tab-content">
+                        <!-- Webcam Tab -->
+                        <div id="webcam-tab" class="tab-pane active">
+                            <div class="webcam-container">
+                                <video id="webcam" autoplay playsinline></video>
+                                <canvas id="webcam-overlay"></canvas>
+                                <div class="webcam-controls">
+                                    <button id="capture-btn" class="btn primary">
+                                        <i class="fas fa-camera"></i> Capture
+                                    </button>
+                                    <button id="switch-camera-btn" class="btn secondary">
+                                        <i class="fas fa-sync"></i> Switch Camera
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Upload Tab -->
+                        <div id="upload-tab" class="tab-pane">
+                            <div class="upload-container">
+                                <div class="upload-area" id="upload-area">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Drag and drop your image here or click to browse</p>
+                                    <span>JPG, PNG or WEBP (Max 10MB)</span>
+                                </div>
+                                <input type="file" id="file-input" accept="image/*" hidden>
+                                <div class="uploaded-preview" id="upload-preview">
+                                    <img id="preview-image" src="" alt="">
+                                    <div class="preview-controls">
+                                        <button id="change-image-btn" class="btn secondary">
+                                            <i class="fas fa-redo"></i> Change Image
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Preview and Process Section -->
+                    <div class="processing-section">
+                        <div class="captured-image-container">
+                            <div class="image-preview">
+                                <div class="placeholder-message" id="capture-placeholder">
+                                    <i class="fas fa-camera"></i>
+                                    <p>Your image will appear here</p>
+                                </div>
+                                <img id="captured-image" src="" alt="" hidden>
+                            </div>
+                            <div class="preview-controls">
+                                <button id="retake-btn" class="btn secondary" disabled>
+                                    <i class="fas fa-redo"></i> Retake
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="process-controls">
+                            <button id="process-btn" class="btn primary btn-lg" disabled>
+                                <i class="fas fa-magic"></i> Create Avatar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Virtual Try-On View -->
+            <section id="fitting-view" class="app-view">
+                <h2>Try On Accessories</h2>
+                <p class="section-description">
+                    Customize your avatar with different accessories.
+                </p>
+                
+                <div class="fitting-container">
+                    <!-- Avatar Display -->
+                    <div class="avatar-section">
+                        <h3>Your Avatar</h3>
+                        <div class="avatar-display">
+                            <div class="placeholder-message" id="avatar-placeholder">
+                                <i class="fas fa-user"></i>
+                                <p>Create an avatar first</p>
+                            </div>
+                            <canvas id="avatar-canvas"></canvas>
+                        </div>
+                        <div class="avatar-controls">
+                            <button id="reset-avatar-btn" class="btn secondary" disabled>
+                                <i class="fas fa-undo"></i> Reset
+                            </button>
+                            <button id="download-avatar-btn" class="btn primary" disabled>
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Accessories Section -->
+                    <div class="accessories-section">
+                        <h3>Accessories</h3>
+                        
+                        <!-- Category Tabs -->
+                        <div class="category-tabs">
+                            <button class="category-tab active" data-category="clothing">
+                                <i class="fas fa-tshirt"></i> Clothing
+                            </button>
+                            <button class="category-tab" data-category="jewelry">
+                                <i class="fas fa-gem"></i> Jewelry
+                            </button>
+                            <button class="category-tab" data-category="hats">
+                                <i class="fas fa-hat-cowboy"></i> Hats
+                            </button>
+                            <button class="category-tab" data-category="glasses">
+                                <i class="fas fa-glasses"></i> Glasses
+                            </button>
+                        </div>
+                        
+                        <!-- Accessories Grid -->
+                        <div class="accessories-grid" id="accessories-grid">
+                            <!-- Accessories will be loaded here dynamically -->
+                            <div class="loading-message">
+                                <div class="spinner"></div>
+                                <p>Loading accessories...</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Selected Accessories List -->
+                        <div class="selected-accessories">
+                            <h4>Selected Items</h4>
+                            <ul id="selected-list">
+                                <li class="empty-message">No accessories selected</li>
+                            </ul>
+                            <button id="clear-accessories-btn" class="btn secondary" disabled>
+                                <i class="fas fa-trash"></i> Clear All
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="save-section">
+                    <button id="save-look-btn" class="btn primary btn-lg" disabled>
+                        <i class="fas fa-save"></i> Save This Look
+                    </button>
+                </div>
+            </section>
+            
+            <!-- Gallery View -->
+            <section id="gallery-view" class="app-view">
+                <h2>My Saved Looks</h2>
+                <p class="section-description">
+                    View and manage your saved virtual outfits.
+                </p>
+                
+                <div class="gallery-controls">
+                    <div class="search-box">
+                        <input type="text" id="search-looks" placeholder="Search saved looks...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    
+                    <div class="sort-options">
+                        <label for="sort-by">Sort by:</label>
+                        <select id="sort-by">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="name">Name (A-Z)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="gallery-grid" id="gallery-grid">
+                    <!-- Saved looks will be loaded here dynamically -->
+                    <div class="empty-gallery" id="empty-gallery">
+                        <i class="fas fa-images"></i>
+                        <p>You haven't saved any looks yet</p>
+                        <button class="btn primary" id="create-first-look-btn">
+                            Create Your First Look
+                        </button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- About View -->
+            <section id="about-view" class="app-view">
+                <h2>About Virtual Fitting Avatar</h2>
+                
+                <div class="about-content">
+                    <div class="about-section">
+                        <h3>How It Works</h3>
+                        <div class="process-steps">
+                            <div class="step">
+                                <div class="step-icon">
+                                    <i class="fas fa-camera"></i>
+                                </div>
+                                <div class="step-content">
+                                    <h4>Capture</h4>
+                                    <p>Take a photo with your webcam or upload an existing image.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="step">
+                                <div class="step-icon">
+                                    <i class="fas fa-crop-alt"></i>
+                                </div>
+                                <div class="step-content">
+                                    <h4>Segment</h4>
+                                    <p>Our AI uses the Segment Anything Model (SAM) to precisely identify you in the image.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="step">
+                                <div class="step-icon">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="step-content">
+                                    <h4>Generate</h4>
+                                    <p>A photorealistic avatar is created based on your appearance.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="step">
+                                <div class="step-icon">
+                                    <i class="fas fa-tshirt"></i>
+                                </div>
+                                <div class="step-content">
+                                    <h4>Customize</h4>
+                                    <p>Try on different accessories to create your perfect look.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-section">
+                        <h3>Technology</h3>
+                        <p>Virtual Fitting Avatar uses cutting-edge AI technology:</p>
+                        <ul class="tech-list">
+                            <li><strong>Segment Anything Model (SAM)</strong> - Meta's advanced AI for precise image segmentation</li>
+                            <li><strong>WebGL Rendering</strong> - For realistic 3D visualization</li>
+                            <li><strong>Computer Vision</strong> - To accurately identify body parts and features</li>
+                            <li><strong>Deep Learning</strong> - For photorealistic avatar generation</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="about-section">
+                        <h3>Privacy</h3>
+                        <p>We take your privacy seriously:</p>
+                        <ul class="privacy-list">
+                            <li>All processing happens locally in your browser</li>
+                            <li>Your images are never stored on external servers</li>
+                            <li>Saved looks are stored only on your device</li>
+                            <li>You have complete control over your data</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="assets/images/logo-sm.svg" alt="Virtual Fitting Avatar">
+                    <span>Virtual Fitting Avatar</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#" data-view="about">About</a>
+                    <a href="https://github.com/SreeHarhsa/virtual-fitting-avatar" target="_blank">GitHub</a>
+                    <a href="#" data-view="privacy">Privacy</a>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2025 Virtual Fitting Avatar. Created by Sree Harsha.
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Modals -->
+    <div class="modal" id="processing-modal">
+        <div class="modal-content">
+            <div class="processing-animation">
+                <div class="spinner"></div>
+                <h3>Processing Your Image</h3>
+                <div class="progress-bar">
+                    <div class="progress" id="progress-indicator"></div>
+                </div>
+                <p id="progress-status">Segmenting image with SAM...</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="save-look-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Save Your Look</h3>
+            <div class="save-look-form">
+                <div class="form-group">
+                    <label for="look-name">Name</label>
+                    <input type="text" id="look-name" placeholder="My Awesome Look">
+                </div>
+                <div class="form-group">
+                    <label for="look-notes">Notes (optional)</label>
+                    <textarea id="look-notes" placeholder="Add some notes about this look..."></textarea>
+                </div>
+                <div class="look-preview">
+                    <img id="look-preview-img" src="" alt="Look Preview">
+                </div>
+                <div class="form-actions">
+                    <button id="cancel-save-btn" class="btn secondary">Cancel</button>
+                    <button id="confirm-save-btn" class="btn primary">Save Look</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- External Libraries -->
+    <script src="https://unpkg.com/onnxruntime-web/dist/ort.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
+    
+    <!-- Application Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/camera.js"></script>
+    <script src="js/sam-client.js"></script>
+    <script src="js/avatar-generator.js"></script>
+    <script src="js/accessory-manager.js"></script>
+    <script src="js/gallery-manager.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

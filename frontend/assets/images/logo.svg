@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="64" fill="#F8F9FD"/>
+  
+  <!-- Avatar base outline -->
+  <circle cx="256" cy="180" r="70" fill="#5E60CE" opacity="0.8"/>
+  <path d="M146 400C146 330.5 195.5 274 256 274C316.5 274 366 330.5 366 400" stroke="#5E60CE" stroke-width="20" stroke-linecap="round"/>
+  
+  <!-- Clothing outline -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M196 284C196 284 176 334 156 374C136 414 126 424 126 424H175.293C175.293 424 187.293 400 196 384C204.707 368 216 328 216 328L196 284Z" fill="#FF5E78" opacity="0.8"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M316 284C316 284 336 334 356 374C376 414 386 424 386 424H336.707C336.707 424 324.707 400 316 384C307.293 368 296 328 296 328L316 284Z" fill="#FF5E78" opacity="0.8"/>
+  
+  <!-- Accessories -->
+  <circle cx="256" cy="180" r="30" fill="#F8F9FD"/>
+  <path d="M236 180C236 169.1 244.1 160 256 160C267.9 160 276 169.1 276 180" stroke="#5E60CE" stroke-width="6"/>
+  <rect x="236" y="160" width="40" height="12" rx="6" fill="#5E60CE"/>
+  <circle cx="226" cy="180" r="6" fill="#56E3D8"/>
+  <circle cx="286" cy="180" r="6" fill="#56E3D8"/>
+  
+  <!-- Try-on indicator -->
+  <path d="M346 120L371 145L396 120" stroke="#5E60CE" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M396 145L371 120L346 145" stroke="#5E60CE" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Virtual fitting text -->
+  <path d="M126.7 160L136 136H146L158 172H148L142.3 149.8L134 172H126L118.5 149.8L112 172H102L114 136H124L132.3 160H126.7Z" fill="#5E60CE"/>
+  <path d="M162 172V136H172V172H162Z" fill="#5E60CE"/>
+  <path d="M180 172V136H190L206 159V136H216V172H207L190 148V172H180Z" fill="#5E60CE"/>
+  <path d="M222 172V136H248V145H232V149H246V158H232V163H250V172H222Z" fill="#5E60CE"/>
+  
+  <!-- Bottom text -->
+  <path d="M168 442V416H178V442H168Z" fill="#5E60CE"/>
+  <path d="M194 442V416H204L214 433V416H224V442H215L204 424V442H194Z" fill="#5E60CE"/>
+  <path d="M232 442V416H258V424H242V425H256V433H242V434H260V442H232Z" fill="#5E60CE"/>
+  <path d="M270 442V416H290C293.3 416 296 416.7 298 418C300 419.3 301 421.3 301 424V426C301 429.3 299.3 432 296 434C298.7 435.3 300 437.3 300 440V442H290V438C290 434.7 284 434 284 434H280V442H270ZM280 426H284C288 426 291 426 291 422C291 418 288 424 284 424H280V426Z" fill="#5E60CE"/>
+  <path d="M314 442V416H340V424H324V425H338V433H324V434H342V442H314Z" fill="#5E60CE"/>
+  <path d="M348 442V416H361C368.3 416 374 419 374 427V431C374 439 368.3 442 361 442H348ZM358 424V434H361C366 434 364 434 364 431V427C364 424 366 424 361 424H358Z" fill="#5E60CE"/>
+</svg>
